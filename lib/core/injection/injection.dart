@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aurora_app/core/injection/src/appointments_inject.dart';
 import 'package:aurora_app/core/injection/src/auth_injection.dart';
 import 'package:aurora_app/core/injection/src/blog_injection.dart';
@@ -13,5 +15,5 @@ Future<void> initInjection() async {
   await homeInject();
   await blogInject();
   await appointmentsInject();
-  print('HomeScreenWrapper: Injection finished');
+  log('HomeScreenWrapper: Injection finished');
 }

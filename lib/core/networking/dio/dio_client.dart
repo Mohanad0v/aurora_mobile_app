@@ -12,7 +12,6 @@ class DioClient {
     required AuthLocal authLocal,
   })  : _dio = dio,
         _authLocal = authLocal {
-    // Global interceptors
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -35,7 +34,6 @@ class DioClient {
             log('⚠️ Unauthorized! Consider refreshing token here.');
           }
 
-          // Optional: handle network timeout
           if (e.type == DioExceptionType.connectionTimeout ||
               e.type == DioExceptionType.receiveTimeout) {
             log('⏱ Request timed out');
@@ -46,9 +44,8 @@ class DioClient {
       ),
     );
 
-    // Default Dio configuration
     _dio.options
-      ..baseUrl = 'https://your-api-base-url.com' // replace with your API
+      ..baseUrl = ''
       ..connectTimeout = const Duration(seconds: 15)
       ..receiveTimeout = const Duration(seconds: 15)
       ..headers = {
@@ -57,9 +54,6 @@ class DioClient {
       };
   }
 
-  // ----------------------
-  // HTTP METHODS
-  // ----------------------
 
   Future<Response> get({
     required String url,

@@ -15,11 +15,9 @@ class SocialButtons extends StatelessWidget {
         Expanded(
           child: CustomSocialButton(
             text: 'google'.tr(),
-            onPressed: () {
-              // Handle Google login
-            },
+            onPressed: () {},
             prefixIcon: SvgPicture.asset(
-              'assets/images/google_icon.svg', // your SVG path
+              'assets/images/google_icon.svg',
               width: 20,
               height: 20,
             ),
@@ -30,9 +28,7 @@ class SocialButtons extends StatelessWidget {
         Expanded(
           child: CustomSocialButton(
             text: 'apple'.tr(),
-            onPressed: () {
-              // Handle Apple login
-            },
+            onPressed: () {},
             prefixIcon: const FaIcon(
               FontAwesomeIcons.apple,
               color: Colors.black, // Apple black

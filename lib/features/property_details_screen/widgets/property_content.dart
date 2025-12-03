@@ -41,12 +41,10 @@ class PropertyContent extends StatelessWidget {
           const SizedBox(height: 24),
 
           const SizedBox(height: 24),
-          // Reviews section remains
           isLoadingReviews
               ? const Center(child: CircularProgressIndicator())
               : ReviewList(reviews: reviews),
           const SizedBox(height: 24),
-          // Review form remains
           ReviewForm(
             reviewController: reviewController,
             onRatingChanged: onRatingChanged,

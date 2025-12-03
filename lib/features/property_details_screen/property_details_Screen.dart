@@ -32,7 +32,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
     super.initState();
     _pageController = PageController();
 
-    // Fetch userId from AuthBloc
     final authState = context.read<AuthBloc>().state;
     _userId = authState is AuthAuthenticated ? authState.user.id : '';
 
@@ -75,7 +74,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   void _openScheduleDialog(BuildContext context) {
     final appointmentsBloc = context.read<AppointmentsBloc>();
 
-    // Initialize scheduling state properly
     appointmentsBloc.add(InitializeScheduleAppointment(propertyId: widget.propertyId));
 
     showDialog(

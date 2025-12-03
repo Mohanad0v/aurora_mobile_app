@@ -7,7 +7,6 @@ abstract class NewsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Load all news (optionally with pagination)
 class LoadNews extends NewsEvent {
   final int page;
 
@@ -17,7 +16,6 @@ class LoadNews extends NewsEvent {
   List<Object?> get props => [page];
 }
 
-/// Load a single news item by ID
 class LoadNewsById extends NewsEvent {
   final String id;
 

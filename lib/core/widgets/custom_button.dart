@@ -32,7 +32,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget buttonContent = Row(
-      mainAxisSize: MainAxisSize.min, // important for horizontal lists
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (icon != null) ...[

@@ -68,7 +68,6 @@ class _AuroraAppState extends State<AuroraApp> {
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
-            // ✅ Dispatch property and favorites events only after authentication
             context.read<PropertyBloc>().add(FetchProperties());
             context.read<FavoritesBloc>().add(LoadFavorites(userId: state.user.id));
             context.read<AppointmentsBloc>().add(FetchUserAppointments(userId: state.user.id));
@@ -86,7 +85,6 @@ class _AuroraAppState extends State<AuroraApp> {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           navigatorKey: _navigationService.navigatorKey,
-          // ✅ Use NavigationService
           initialRoute: Routes.splash,
           routes: {
             Routes.splash: (context) => SplashScreen(
@@ -119,7 +117,6 @@ class _AuroraAppState extends State<AuroraApp> {
   }
 }
 
-/// Main Scaffold with persistent IndexedStack and bottom navigation
 class MainScaffold extends StatefulWidget {
   const MainScaffold({super.key});
 
@@ -136,7 +133,6 @@ class MainScaffoldState extends State<MainScaffold> {
   void initState() {
     super.initState();
 
-    // Fetch userId from AuthBloc
     final authState = context.read<AuthBloc>().state;
     _userId = authState is AuthAuthenticated ? authState.user.id : '';
 

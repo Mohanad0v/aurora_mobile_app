@@ -9,23 +9,21 @@ class UserModel extends UserEntity {
     required super.token,
   });
 
-  /// 🏗️ Factory from API JSON
   factory UserModel.fromJson(Map<String, dynamic> json) {
     final user = json['user'] as Map<String, dynamic>? ?? {};
 
     return UserModel(
-      id: user['_id']?.toString() ?? '',       // fallback to empty string
+      id: user['_id']?.toString() ?? '',
       name: user['name']?.toString() ?? '',
       email: user['email']?.toString() ?? '',
       roles: (user['roles'] as List<dynamic>?)
           ?.map((role) => role.toString())
           .toList() ??
           [],
-      token: json['token']?.toString() ?? '',  // ensure token is not null
+      token: json['token']?.toString() ?? '',
     );
   }
 
-  /// 🔄 Convert back to JSON (optional)
   Map<String, dynamic> toJson() {
     return {
       'id': id,

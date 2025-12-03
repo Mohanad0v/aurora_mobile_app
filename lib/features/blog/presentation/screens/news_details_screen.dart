@@ -22,7 +22,7 @@ class NewsDetailsScreen extends StatelessWidget {
             return Center(child: Text(state.message));
           } else if (state is NewsLoadedById) {
             final post = state.news;
-            return _buildContent(context, post); // ✅ Pass context here
+            return _buildContent(context, post);
           }
           return const SizedBox.shrink();
         },

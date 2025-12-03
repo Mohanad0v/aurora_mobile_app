@@ -8,13 +8,10 @@ abstract class AppointmentsState extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Initial state
 class AppointmentsInitial extends AppointmentsState {}
 
-/// Loading state
 class AppointmentsLoading extends AppointmentsState {}
 
-/// Loaded appointments
 class AppointmentsLoaded extends AppointmentsState {
   final List<AppointmentModel> appointments;
   const AppointmentsLoaded(this.appointments);
@@ -23,7 +20,6 @@ class AppointmentsLoaded extends AppointmentsState {
   List<Object?> get props => [appointments];
 }
 
-/// Error state
 class AppointmentsError extends AppointmentsState {
   final String message;
   const AppointmentsError(this.message);
@@ -32,9 +28,8 @@ class AppointmentsError extends AppointmentsState {
   List<Object?> get props => [message];
 }
 
-/// Scheduling state
 class ScheduleAppointmentState extends AppointmentsState {
-  final String propertyId; // Added propertyId
+  final String propertyId;
   final DateTime? selectedDate;
   final String? selectedTime;
   final String visitType;
@@ -90,8 +85,8 @@ class ScheduleAppointmentState extends AppointmentsState {
     selectedDate,
     selectedTime,
     visitType,
-    vrCity,
-    notes,
+        vrCity,
+        notes,
     isSubmitting,
     isSuccess,
     error,

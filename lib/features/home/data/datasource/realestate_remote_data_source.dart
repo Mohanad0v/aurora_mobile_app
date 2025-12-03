@@ -105,12 +105,15 @@ class RealEstateRemoteDataSourceImpl implements RealEstateRemoteDataSource {
             userName: reviewJson['userName']?.toString() ?? '',
             userEmail: reviewJson['userEmail']?.toString() ?? '',
             comment: reviewJson['comment']?.toString() ?? '',
-            rating: (reviewJson['rating'] ?? 0) is int ? reviewJson['rating'] : int.tryParse(reviewJson['rating']?.toString() ?? '0') ?? 0,
-            createdAt: reviewJson['createdAt'] != null ? DateTime.tryParse(reviewJson['createdAt'].toString()) ?? DateTime.now() : DateTime.now(),
+            rating: (reviewJson['rating'] ?? 0) is int
+                ? reviewJson['rating']
+                : int.tryParse(reviewJson['rating']?.toString() ?? '0') ?? 0,
+            createdAt: reviewJson['createdAt'] != null
+                ? DateTime.tryParse(reviewJson['createdAt'].toString()) ?? DateTime.now()
+                : DateTime.now(),
           );
         }
 
-        // Server returns a string success message
         if (data is String) {
           return ReviewModel(
             id: '',

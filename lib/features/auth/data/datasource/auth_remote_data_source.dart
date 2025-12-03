@@ -10,15 +10,14 @@ import '../models/user_profile_model.dart';
 import 'auth_local.dart';
 
 class AuthRemoteDataSource {
-  final DioClient dioClient; // Authenticated endpoints
-  final Dio dio; // Public endpoints
+  final DioClient dioClient;
+  final Dio dio;
 
   const AuthRemoteDataSource({
     required this.dioClient,
     required this.dio,
   });
 
-  /// 🔑 Login
   Future<UserModel> signIn({required LoginParams params}) async {
     return _request<UserModel>(
       () => dio.post(AppUrls.login, data: params.toJson()),
@@ -28,7 +27,6 @@ class AuthRemoteDataSource {
     );
   }
 
-  /// 📝 Sign up
   Future<UserModel> signUp({
     required String name,
     required String email,
@@ -39,7 +37,6 @@ class AuthRemoteDataSource {
       data: {'name': name, 'email': email, 'password': password},
     );
 
-    // Treat 200 or 201 as success
     if (response.statusCode == 200 || response.statusCode == 201) {
       final data = response.data;
       if (data is Map<String, dynamic>) {
@@ -51,7 +48,6 @@ class AuthRemoteDataSource {
     throw Exception('SignUp failed with status code ${response.statusCode}');
   }
 
-  /// 👤 Get User Profile (Auth required)
   Future<UserProfile> getUserProfile() async {
     final token = locator.get<AuthLocal>().getAuthToken();
     if (token == null || token.isEmpty) {
@@ -62,11 +58,10 @@ class AuthRemoteDataSource {
       () => dioClient.get(url: AppUrls.getCurrentUser),
       (data) => UserProfile.fromJson(data),
       'Failed to fetch profile',
-      expectSuccessKey: false, // raw JSON, no 'success'
+      expectSuccessKey: false,
     );
   }
 
-  /// 🔥 Generic Request Handler
   Future<T> _request<T>(
     Future<Response> Function() apiCall,
     T Function(Map<String, dynamic>) parser,
@@ -81,7 +76,6 @@ class AuthRemoteDataSource {
         throw Exception('$errorMessage: Invalid response format');
       }
 
-      // Only check 'success' key if expected (login/signup)
       if (expectSuccessKey && data['success'] != true) {
         throw Exception('$errorMessage: Unsuccessful response');
       }
@@ -93,16 +87,15 @@ class AuthRemoteDataSource {
     }
   }
 
-  /// 📩 Submit Contact Us Form
   Future<void> sendContactMessage({required ContactUsParams params}) async {
     try {
       final response = await dioClient.post(
-        url: AppUrls.contactForm, // define this in AppUrls
-        data: params.toJson(),    // ✅ FIXED: send JSON map
+        url: AppUrls.contactForm,
+        data: params.toJson(),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return; // ✅ success
+        return;
       } else {
         throw Exception(
           'Contact form failed with status: ${response.statusCode}',

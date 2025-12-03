@@ -6,8 +6,8 @@ import '../models/appointment_model.dart';
 import '../models/schedule_appointment_params.dart';
 
 class AppointmentsRemoteDataSource {
-  final DioClient dioClient; // has baseUrl + auth interceptors
-  final Dio dio;             // raw dio you already use for some GETs
+  final DioClient dioClient;
+  final Dio dio;
 
   const AppointmentsRemoteDataSource({
     required this.dioClient,
@@ -20,9 +20,7 @@ class AppointmentsRemoteDataSource {
       final data = response.data as Map<String, dynamic>?;
       if (data == null || data['appointments'] == null) return [];
       final list = data['appointments'] as List<dynamic>;
-      return list
-          .map((a) => AppointmentModel.fromJson(a as Map<String, dynamic>))
-          .toList();
+      return list.map((a) => AppointmentModel.fromJson(a as Map<String, dynamic>)).toList();
     } catch (e) {
       throw Exception('Failed to fetch appointments: $e');
     }
@@ -35,14 +33,11 @@ class AppointmentsRemoteDataSource {
         data: params.toJson(),
       );
 
-      // Treat any 2xx status as success
       if (res.statusCode != null && res.statusCode! >= 200 && res.statusCode! < 300) {
         final data = res.data;
-        // If JSON with success field, check it
         if (data is Map<String, dynamic> && data.containsKey('success') && data['success'] != true) {
           throw Exception(data['message'] ?? 'Failed to schedule appointment');
         }
-        // Otherwise, assume success (including plain string responses)
         return;
       }
 

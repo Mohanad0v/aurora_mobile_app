@@ -28,14 +28,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     final authState = context.read<AuthBloc>().state;
     _userId = authState is AuthAuthenticated ? authState.user.id : '';
 
-    // Load favorites once
     context.read<FavoritesBloc>().add(LoadFavorites(userId: _userId));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: locator<FavoritesBloc>(), // Use the shared FavoritesBloc
+      value: locator<FavoritesBloc>(),
       child: Scaffold(
         backgroundColor: AppColors.gray50,
         appBar: AppBar(

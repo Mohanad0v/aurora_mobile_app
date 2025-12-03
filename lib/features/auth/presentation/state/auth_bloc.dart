@@ -11,6 +11,7 @@ import '../../data/models/user_profile_model.dart';
 import '../../domain/entites/user_enntity.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -25,25 +26,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SubmitContactForm>(_onSubmitContactForm);
   }
 
-  // ------------------- SIGN IN -------------------
   Future<void> _onSignInRequested(
-      SignInRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    SignInRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
     final result = await authRepository.signIn(loginParams: event.loginParams);
 
     result.fold(
-          (failure) => emit(AuthFailure(message: failure.message)),
-          (user) => emit(AuthAuthenticated(user: user)),
+      (failure) => emit(AuthFailure(message: failure.message)),
+      (user) => emit(AuthAuthenticated(user: user)),
     );
   }
 
-  // ------------------- SIGN UP -------------------
   Future<void> _onSignUpRequested(
-      SignUpRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    SignUpRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
 
     final result = await authRepository.signUp(
@@ -53,14 +52,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     result.fold(
-          (failure) => emit(AuthFailure(message: failure.message)),
-          (user) async {
+      (failure) => emit(AuthFailure(message: failure.message)),
+      (user) async {
         try {
-          // Fetch full profile to populate missing fields (like id)
           final profileResult = await authRepository.getUserProfile();
           profileResult.fold(
-                (_) => emit(AuthAuthenticated(user: user)), // fallback
-                (profile) {
+            (_) => emit(AuthAuthenticated(user: user)),
+            (profile) {
               final fullUser = UserModel(
                 id: profile.id,
                 name: profile.name,
@@ -72,17 +70,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             },
           );
         } catch (_) {
-          // In case profile fetch fails, still emit basic user
           emit(AuthAuthenticated(user: user));
         }
       },
     );
   }
-  // ------------------- CHECK AUTH STATUS -------------------
+
   Future<void> _onCheckStatus(
-      AuthCheckStatus event,
-      Emitter<AuthState> emit,
-      ) async {
+    AuthCheckStatus event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
     final statusResult = await authRepository.checkAuthStatus();
 
@@ -99,48 +96,42 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     final profileResult = await authRepository.getUserProfile();
     profileResult.fold(
-          (_) async {
+      (_) async {
         await authRepository.signOut();
         emit(AuthUnauthenticated());
       },
-          (profile) => emit(AuthProfileLoaded(profile: profile)),
+      (profile) => emit(AuthProfileLoaded(profile: profile)),
     );
   }
 
-  // ------------------- GET USER PROFILE -------------------
   Future<void> _onGetUserProfile(
-      GetUserProfile event,
-      Emitter<AuthState> emit,
-      ) async {
+    GetUserProfile event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
     final result = await authRepository.getUserProfile();
 
     result.fold(
-          (_) => emit(AuthUnauthenticated()),
-          (profile) => emit(AuthProfileLoaded(profile: profile)),
+      (_) => emit(AuthUnauthenticated()),
+      (profile) => emit(AuthProfileLoaded(profile: profile)),
     );
   }
 
-  // ------------------- SIGN OUT -------------------
-  // ------------------- SIGN OUT -------------------
   Future<void> _onSignOutRequested(
-      SignOutRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    SignOutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     await authRepository.signOut();
 
-    // Emit unauthenticated state (optional)
     emit(AuthUnauthenticated());
 
-    // Restart the app at the login screen
-    locator<NavigationService>()
-        .pushNamedAndRemoveUntil(Routes.auth);
+    locator<NavigationService>().pushNamedAndRemoveUntil(Routes.auth);
   }
-  // ------------------- SUBMIT CONTACT FORM -------------------
+
   Future<void> _onSubmitContactForm(
-      SubmitContactForm event,
-      Emitter<AuthState> emit,
-      ) async {
+    SubmitContactForm event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(ContactFormLoading());
 
     final params = ContactUsParams(
@@ -153,8 +144,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final result = await authRepository.submitContact(params: params);
 
     result.fold(
-          (failure) => emit(ContactFormFailure(message: failure.message)),
-          (_) => emit(ContactFormSuccess()),
+      (failure) => emit(ContactFormFailure(message: failure.message)),
+      (_) => emit(ContactFormSuccess()),
     );
   }
 }

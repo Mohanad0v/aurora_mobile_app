@@ -32,8 +32,8 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
     emit(AppointmentsLoading());
     final Either<Failure, List<AppointmentModel>> result = await repository.fetchUserAppointments();
     result.fold(
-          (failure) => emit(AppointmentsError(failure.message)),
-          (appointments) => emit(AppointmentsLoaded(appointments)),
+      (failure) => emit(AppointmentsError(failure.message)),
+      (appointments) => emit(AppointmentsLoaded(appointments)),
     );
   }
 
@@ -55,25 +55,19 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
   Future<void> _onSubmitScheduleAppointment(SubmitScheduleAppointment event, Emitter<AppointmentsState> emit) async {
     final current = _currentScheduleState;
 
-    // 1️⃣ Show loading
     emit(current.copyWith(isSubmitting: true, error: null, isSuccess: false));
 
-    // 2️⃣ Schedule appointment
     final Either<Failure, void> result = await repository.scheduleAppointment(event.params);
 
     result.fold(
-      // 3️⃣ Failure
-          (failure) => emit(current.copyWith(isSubmitting: false, isSuccess: false, error: failure.message)),
-
-      // 4️⃣ Success
-          (_) async {
+      (failure) => emit(current.copyWith(isSubmitting: false, isSuccess: false, error: failure.message)),
+      (_) async {
         emit(current.copyWith(isSubmitting: false, isSuccess: true, error: null));
 
-        // Refresh appointments list in the background
         final appointmentsResult = await repository.fetchUserAppointments();
         appointmentsResult.fold(
-              (failure) => print('Error refreshing appointments: ${failure.message}'),
-              (appointments) => emit(AppointmentsLoaded(appointments)),
+          (failure) => print('Error refreshing appointments: ${failure.message}'),
+          (appointments) => emit(AppointmentsLoaded(appointments)),
         );
       },
     );

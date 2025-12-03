@@ -39,7 +39,6 @@ class AppointmentRepositoryImpl implements AppointmentsRepository {
     }
 
     try {
-      // Remote DS now handles 2xx & string success properly
       await remoteDataSource.scheduleAppointment(params);
       return const Right(null);
     } catch (error, st) {

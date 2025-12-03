@@ -32,20 +32,18 @@ class _PropertyListingsScreenState extends State<PropertyListingsScreen> {
   late PropertyFilters _filters;
   late String _userId;
 
-  Timer? _debounce; // debounce timer
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
-    _filters = PropertyFilters(); // default filters
+    _filters = PropertyFilters();
 
     final authState = context.read<AuthBloc>().state;
     _userId = authState is AuthAuthenticated ? authState.user.id : '';
 
-    // Load favorites
     context.read<FavoritesBloc>().add(LoadFavorites(userId: _userId));
 
-    // Fetch all properties once
     context.read<PropertyBloc>().add(FetchProperties());
   }
 
@@ -53,14 +51,12 @@ class _PropertyListingsScreenState extends State<PropertyListingsScreen> {
     setState(() => _filters = filters);
     _searchController.text = filters.searchQuery ?? '';
 
-    // Apply search + all filters
     context.read<PropertyBloc>().add(SearchProperties(filters: filters));
   }
 
   void _onSearchChanged(String value) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      // Normalize Arabic input before sending to filters
       final normalizedValue = value.trim().isEmpty ? null : normalizeArabic(value.trim());
 
       final updatedFilters = _filters.copyWith(
@@ -148,7 +144,7 @@ class _PropertyListingsScreenState extends State<PropertyListingsScreen> {
                     textInputAction: TextInputAction.search,
                     controller: _searchController,
                     decoration: const InputDecoration(prefixIcon: Icon(Icons.search)),
-                    onChanged: _onSearchChanged, // use debounced search
+                    onChanged: _onSearchChanged,
                   ),
                 ),
                 const SizedBox(width: 8),

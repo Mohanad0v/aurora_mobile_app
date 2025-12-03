@@ -7,31 +7,22 @@ import '../../networking/dio/dio_client.dart';
 import '../injection.dart';
 
 Future<void> authInject() async {
-  // Data sources
   locator.registerLazySingleton<AuthRemoteDataSource>(
-        () => AuthRemoteDataSource(
+    () => AuthRemoteDataSource(
       dioClient: locator<DioClient>(),
       dio: locator<Dio>(),
     ),
   );
 
-  // ❌ REMOVE THIS DUPLICATE REGISTRATION
-  // locator.registerLazySingleton<AuthLocal>(
-  //   () => AuthLocal(cashHelper: locator()),
-  // );
-
-  // Repository
   locator.registerLazySingleton<AuthRepositoryImpl>(
-        () => AuthRepositoryImpl(
+    () => AuthRepositoryImpl(
       remoteDataSource: locator<AuthRemoteDataSource>(),
       localDataSource: locator<AuthLocal>(),
       networkInfo: locator(),
     ),
   );
 
-  // Bloc
   locator.registerFactory(
-        () => AuthBloc(authRepository: locator<AuthRepositoryImpl>()),
+    () => AuthBloc(authRepository: locator<AuthRepositoryImpl>()),
   );
 }
-

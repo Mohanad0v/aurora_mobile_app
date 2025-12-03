@@ -6,7 +6,7 @@ import '../data/models/review_model.dart';
 class PropertyDetailsState extends Equatable {
   final bool isLoadingDetails;
   final bool isLoadingReviews;
-  final bool isAddingReview; // NEW
+  final bool isAddingReview;
   final PropertyDetailsModel? propertyDetails;
   final List<ReviewModel> reviews;
   final String? error;
@@ -14,7 +14,7 @@ class PropertyDetailsState extends Equatable {
   const PropertyDetailsState({
     this.isLoadingDetails = false,
     this.isLoadingReviews = false,
-    this.isAddingReview = false, // NEW
+    this.isAddingReview = false,
     this.propertyDetails,
     this.reviews = const [],
     this.error,
@@ -23,7 +23,7 @@ class PropertyDetailsState extends Equatable {
   PropertyDetailsState copyWith({
     bool? isLoadingDetails,
     bool? isLoadingReviews,
-    bool? isAddingReview, // NEW
+    bool? isAddingReview,
     PropertyDetailsModel? propertyDetails,
     List<ReviewModel>? reviews,
     String? error,

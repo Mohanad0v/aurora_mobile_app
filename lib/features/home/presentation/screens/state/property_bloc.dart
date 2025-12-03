@@ -17,7 +17,6 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
     on<FetchPropertyStats>(_onFetchPropertyStats);
   }
 
-  /// Fetch all properties, then automatically fetch stats
   Future<void> _onFetchProperties(
       FetchProperties event,
       Emitter<PropertyState> emit,
@@ -41,13 +40,11 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
           totalProperties: properties.length,
         ));
 
-        // Automatically fetch stats after properties
         add(FetchPropertyStats());
       },
     );
   }
 
-  /// Search properties locally
   Future<void> _onSearchProperties(
       SearchProperties event,
       Emitter<PropertyState> emit,
@@ -66,7 +63,6 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
     }
   }
 
-  /// Fetch property-related stats (views & completed deals)
   Future<void> _onFetchPropertyStats(
       FetchPropertyStats event,
       Emitter<PropertyState> emit,
@@ -74,7 +70,6 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
     log('Fetching property stats...');
 
     try {
-      // Fetch views
       final viewsResult = await realEstateRepoImpl.getViewsStats();
       final totalViews = viewsResult.fold(
             (failure) {
@@ -87,7 +82,6 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
         },
       );
 
-      // Fetch completed deals
       final dealsResult = await realEstateRepoImpl.getCompletedDeals();
       final completedDeals = dealsResult.fold(
             (failure) {

@@ -7,10 +7,8 @@ abstract class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-// Check whether the user is authenticated
 class AuthCheckStatus extends AuthEvent {}
 
-// Trigger sign in
 class SignInRequested extends AuthEvent {
   final LoginParams loginParams;
 
@@ -20,7 +18,6 @@ class SignInRequested extends AuthEvent {
   List<Object?> get props => [loginParams];
 }
 
-// Trigger sign up
 class SignUpRequested extends AuthEvent {
   final String name;
   final String email;
@@ -36,13 +33,10 @@ class SignUpRequested extends AuthEvent {
   List<Object?> get props => [name, email, password];
 }
 
-// Fetch the current user's profile
 class GetUserProfile extends AuthEvent {}
 
-// Trigger sign out
 class SignOutRequested extends AuthEvent {}
 
-// Optional: Token expired detected
 class TokenExpiredDetected extends AuthEvent {}
 
 class SubmitContactForm extends AuthEvent {

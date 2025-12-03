@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/listings_screen/widgets/property_filters.dart';
-import '../../../../../core/config/theme/src/colors.dart'; // AppColors
+import '../../../../../core/config/theme/src/colors.dart';
 
 class FilterDrawer extends StatefulWidget {
   final PropertyFilters currentFilters;
@@ -25,7 +25,6 @@ class _FilterDrawerState extends State<FilterDrawer> {
   late PropertyFilters _filters;
   late RangeValues _priceRange;
 
-  // ✅ Dynamic Cities
   final List<Map<String, String?>> cityOptions = const [
     {'label': 'جميع المدن', 'value': null},
     {'label': 'دمشق', 'value': 'damascus'},
@@ -60,7 +59,6 @@ class _FilterDrawerState extends State<FilterDrawer> {
   final List<String> bedsOptions = ['0', '1', '2', '3', '4', '5+'];
   final List<String> bathsOptions = ['0', '1', '2', '3', '4+'];
 
-  // ✅ Dynamic Amenities
   final List<Map<String, String>> amenitiesOptions = [
     {'label': 'إطلالة على البحيرة', 'value': 'Lake View'},
     {'label': 'موقد', 'value': 'Fireplace'},
@@ -103,11 +101,10 @@ class _FilterDrawerState extends State<FilterDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: AppColors.white, // drawer background
+      backgroundColor: AppColors.white,
       child: Column(
         children: [
           _buildHeader(),
-          // APPLY ALL FILTERS BUTTON
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: SizedBox(
@@ -264,7 +261,6 @@ class _FilterDrawerState extends State<FilterDrawer> {
     );
   }
 
-  // ✅ Refactored City Dropdown
   Widget _buildCityDropdown() {
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(
@@ -301,7 +297,7 @@ class _FilterDrawerState extends State<FilterDrawer> {
           values: _priceRange,
           min: 0,
           max: 5000000,
-          activeColor: AppColors.auroraBluePrimary, // Active track color
+          activeColor: AppColors.auroraBluePrimary,
           inactiveColor: AppColors.white,
           divisions: 100,
           onChanged: (values) => setState(() {
@@ -349,7 +345,6 @@ class _FilterDrawerState extends State<FilterDrawer> {
     );
   }
 
-  // ✅ Refactored Amenities Section
   Widget _buildAmenitiesSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

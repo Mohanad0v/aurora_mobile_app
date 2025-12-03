@@ -3,12 +3,10 @@ import 'package:equatable/equatable.dart';
 import '../../../blog/data/models/news_model.dart';
 import '../../data/models/localized_text_model.dart';
 
-/// Base interface for any object that can return a localized string.
 abstract class Localizable {
   String getLocalized();
 }
 
-/// Generic Localized Text Entity
 class LocalizedTextEntity extends Equatable implements Localizable {
   final String en;
   final String ar;

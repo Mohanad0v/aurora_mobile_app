@@ -4,12 +4,11 @@ import '../../../../core/networking/dio/dio_client.dart';
 import '../models/news_model.dart';
 
 class NewsRemoteDataSource {
-  final DioClient dioClient; // For protected endpoints
-  final Dio dio; // For public endpoints
+  final DioClient dioClient;
+  final Dio dio;
 
   const NewsRemoteDataSource({required this.dioClient, required this.dio});
 
-  /// Fetch list of news
   Future<List<NewsModel>> getNews({int page = 1}) async {
     try {
       final response = await dio.get('${AppUrls.getNews}?page=$page');
@@ -27,7 +26,6 @@ class NewsRemoteDataSource {
     }
   }
 
-  /// Fetch single news by ID (optional)
   Future<NewsModel> getNewsById(String id) async {
     try {
       final response = await dio.get('${AppUrls.getNews}/$id');

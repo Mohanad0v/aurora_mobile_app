@@ -55,7 +55,6 @@ class PropertyDetailsBloc extends Bloc<PropertyDetailsEvent, PropertyDetailsStat
         emit(state.copyWith(isAddingReview: false, error: failure.message));
       },
           (review) {
-        // Handle null review (e.g., server returned success string)
         final updatedReviews = List<ReviewModel>.from(state.reviews);
         if (review != null) {
           updatedReviews.add(review);

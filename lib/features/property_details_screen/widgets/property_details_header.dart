@@ -20,7 +20,6 @@ class PropertyDetailsHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Title, Price & Type
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,12 +48,10 @@ class PropertyDetailsHeader extends StatelessWidget {
                 ],
               ),
             ),
-            // Status Badge
             _buildStatusBadge(statusColor),
           ],
         ),
         const SizedBox(height: 16),
-        // Description
         Text(
           property.description?.getLocalized() ?? 'noDescriptionAvailable'.tr(),
           style: const TextStyle(
@@ -65,10 +62,8 @@ class PropertyDetailsHeader extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 24),
-        // Details Grid
         PropertyDetailsGrid(property: property),
         const SizedBox(height: 24),
-        // Amenities Section
         if (property.amenities != null && property.amenities!.isNotEmpty) ...[
           Text(
             'المرافق'.tr(), // "Amenities"
@@ -102,7 +97,6 @@ class PropertyDetailsHeader extends StatelessWidget {
           ),
           const SizedBox(height: 24),
         ],
-        // Schedule Visit Button
         SizedBox(
           width: double.infinity,
           child: ElevatedButton.icon(

@@ -14,7 +14,7 @@ class DialogUtils {
       }) {
     showDialog(
       context: context,
-      barrierDismissible: false, // User must tap button to dismiss
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -83,7 +83,6 @@ class DialogUtils {
     Navigator.of(context, rootNavigator: true).pop();
   }
 
-  /// New success dialog
   static void showSuccessDialog(
       BuildContext context, {
         required String title,
@@ -93,7 +92,7 @@ class DialogUtils {
       }) {
     showDialog(
       context: context,
-      barrierDismissible: false, // Force user to tap button
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

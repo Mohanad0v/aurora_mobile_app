@@ -10,7 +10,7 @@ class HeaderSection extends StatelessWidget {
   final String selectedPropertyType;
   final Function(String) onPropertyTypeSelected;
   final VoidCallback onSearchPressed;
-  final ValueChanged<String> onSearchTextChanged; // <-- new callback
+  final ValueChanged<String> onSearchTextChanged;
 
   const HeaderSection({
     super.key,
@@ -18,7 +18,7 @@ class HeaderSection extends StatelessWidget {
     required this.selectedPropertyType,
     required this.onPropertyTypeSelected,
     required this.onSearchPressed,
-    required this.onSearchTextChanged, // <-- required
+    required this.onSearchTextChanged,
   });
 
   @override
@@ -54,7 +54,7 @@ class HeaderSection extends StatelessWidget {
                 controller: searchController,
                 hintText: 'searchByCityTypeLocation'.tr(),
                 prefixIcon: Icons.search,
-                onChanged: onSearchTextChanged, // <-- updates _filters.searchQuery
+                onChanged: onSearchTextChanged,
               ),
               const SizedBox(height: 16),
               CustomButton(

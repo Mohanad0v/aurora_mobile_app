@@ -5,9 +5,7 @@ class CashHelper {
 
   CashHelper(this.sharedPreferences);
 
-  // static init() async {
-  //   sharedPreferences= await SharedPreferences.getInstance();
-  // }
+
 
   dynamic getData({required String key}) {
     return sharedPreferences?.get(key);

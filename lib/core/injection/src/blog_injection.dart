@@ -8,24 +8,21 @@ import '../../../../core/networking/network_info.dart';
 Future<void> blogInject() async {
   print('Blog injection started');
 
-  // ---------------- Service ----------------
   locator.registerLazySingleton<NewsRemoteDataSource>(
-        () => NewsRemoteDataSource(
+    () => NewsRemoteDataSource(
       dioClient: locator(),
       dio: locator<Dio>(),
     ),
   );
 
-  // ---------------- Repository ----------------
   locator.registerLazySingleton<NewsRepositoryImpl>(
-        () => NewsRepositoryImpl(
+    () => NewsRepositoryImpl(
       remoteDataSource: locator<NewsRemoteDataSource>(),
       networkInfo: locator<NetworkInfo>(),
     ),
   );
 
-  // ---------------- Bloc ----------------
   locator.registerFactory<NewsBloc>(
-        () => NewsBloc(repository: locator<NewsRepositoryImpl>()),
+    () => NewsBloc(repository: locator<NewsRepositoryImpl>()),
   );
 }

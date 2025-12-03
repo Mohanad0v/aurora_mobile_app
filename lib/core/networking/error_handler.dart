@@ -12,10 +12,8 @@ class ErrorHandler implements Exception {
 
   ErrorHandler.handle(dynamic error) {
     if (error is DioException) {
-      // dio error so its an error from response of the API or from dio itself
       failure = _handleError(error);
     } else {
-      // default error
       failure = DataSource.DEFAULT.getFailure();
     }
   }
@@ -163,7 +161,6 @@ class ResponseCode {
   static const int INTERNAL_SERVER_ERROR = 500; // failure, crash in server side
   static const int NOT_FOUND = 404; // failure, not found
 
-  // local status code
   static const int CONNECT_TIMEOUT = -1;
   static const int CANCEL = -2;
   static const int RECIEVE_TIMEOUT = -3;
@@ -182,7 +179,6 @@ class ResponseMessage {
   static const String INTERNAL_SERVER_ERROR = AppStrings.strInternalServerError; // failure, crash in server side
   static const String NOT_FOUND = AppStrings.strNotFoundError; // failure, crash in server side
 
-  // local status code
   static const String CONNECT_TIMEOUT = AppStrings.strTimeoutError;
   static const String CANCEL = AppStrings.strDefaultError;
   static const String RECIEVE_TIMEOUT = AppStrings.strTimeoutError;
@@ -200,8 +196,4 @@ class ResponseErrorKnown {
   static const String TOKEN_FAILED = AppStrings.strTokenFailed;
   static const String PASSWORD_NOT_CORRECT = AppStrings.strPasswordNotCorrect;
 }
-//
-// class ApiInternalStatus {
-//   static const int SUCCESS = 200;
-//   static const int FAILURE = 400;
-// }
+

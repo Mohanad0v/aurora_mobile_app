@@ -20,7 +20,6 @@ class AppStrings {
   static const String strTokenFailed = "API:TOKEN_FAILED";
   static const String strPasswordMustChange = "API:PASSWORD_MUST_CHANGED";
   static const String strPasswordNotCorrect = "password_not_correct";
-  //shared preference keys
 
   static String TOKEN_KEY = 'auth_token';
   static String LOGIN_TOKEN_KEY = 'login_token';

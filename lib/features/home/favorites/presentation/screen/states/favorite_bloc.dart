@@ -6,11 +6,7 @@ import '../../../../data/models/property_response_model.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   final RealEstateRepoImpl repo;
-
-  /// Internal cache of favorite property IDs
   final List<String> _favoritesIds = [];
-
-  /// Internal cache of favorite Property objects
   final List<Property> _properties = [];
 
   FavoritesBloc({required this.repo}) : super(FavoritesInitial()) {
@@ -18,17 +14,14 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     on<ToggleFavorite>(_onToggleFavorite);
   }
 
-  /// Load favorites from backend
-  Future<void> _onLoadFavorites(
-      LoadFavorites event, Emitter<FavoritesState> emit) async {
+  Future<void> _onLoadFavorites(LoadFavorites event, Emitter<FavoritesState> emit) async {
     emit(FavoritesLoading());
 
     final result = await repo.getWishlist(event.userId);
 
     result.fold(
-          (failure) => emit(FavoritesError(message: failure.message)),
-          (properties) {
-        // Update caches
+      (failure) => emit(FavoritesError(message: failure.message)),
+      (properties) {
         _properties
           ..clear()
           ..addAll(properties);
@@ -44,15 +37,12 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     );
   }
 
-  /// Toggle a property as favorite/unfavorite
-  Future<void> _onToggleFavorite(
-      ToggleFavorite event, Emitter<FavoritesState> emit) async {
+  Future<void> _onToggleFavorite(ToggleFavorite event, Emitter<FavoritesState> emit) async {
     if (state is! FavoritesLoaded) return;
 
     final propertyId = event.propertyId;
     final isCurrentlyFavorite = _favoritesIds.contains(propertyId);
 
-    // Optimistic UI update
     if (isCurrentlyFavorite) {
       _favoritesIds.remove(propertyId);
     } else {
@@ -64,7 +54,6 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       properties: List.unmodifiable(_properties),
     ));
 
-    // Persist change in backend
     try {
       if (isCurrentlyFavorite) {
         await repo.removeFromWishlist(event.userId, propertyId);
@@ -72,7 +61,6 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
         await repo.addToWishlist(event.userId, propertyId);
       }
     } catch (e) {
-      // Rollback caches in case of failure
       if (isCurrentlyFavorite) {
         _favoritesIds.add(propertyId);
       } else {
@@ -87,12 +75,9 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     }
   }
 
-  /// Utility: check if property is favorite
   bool isFavorite(String propertyId) => _favoritesIds.contains(propertyId);
 
-  /// Expose favorite IDs
   List<String> get favoritesIds => List.unmodifiable(_favoritesIds);
 
-  /// Expose cached properties
   List<Property> get properties => List.unmodifiable(_properties);
 }

@@ -49,7 +49,6 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // User info
                 Row(
                   children: [
                     const CircleAvatar(
@@ -76,7 +75,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
 
-                // Appointments Button
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.auroraBluePrimary,
@@ -92,7 +90,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
 
-                // Contact Us Button
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.auroraBluePrimary,
@@ -108,7 +105,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
 
-                // Settings
                 ListTile(
                   leading: const Icon(Icons.settings, color: AppColors.gray800),
                   title: Text('الإعدادات'),

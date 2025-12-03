@@ -63,7 +63,6 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
   }
 
   void _handleSubmit() {
-    // Count taps for hidden Base URL dialog
     _loginTapCount++;
     if (_loginTapCount >= 7) {
       _loginTapCount = 0;
@@ -127,7 +126,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Base URL updated!')),
                 );
-                AppUrls.init(); // reload the new URL
+                AppUrls.init();
                 Navigator.of(context).pop();
               }
             },
@@ -144,7 +143,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
     final isArabic = context.locale.languageCode == 'ar';
 
     return Scaffold(
-      resizeToAvoidBottomInset: false, // 🔥 Make sure keyboard pushes content safely
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.gray50,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -167,12 +166,10 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
         },
         child: Stack(
           children: [
-            // Fixed background
             Positioned.fill(
               child: Image.asset('assets/images/hero_bg.png', fit: BoxFit.cover),
             ),
 
-            // Scrollable content
             Align(
               alignment: Alignment.center,
               child: SlideTransition(

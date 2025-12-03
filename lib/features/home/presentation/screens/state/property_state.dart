@@ -9,7 +9,6 @@ class PropertyState extends Equatable {
   final BlocStatus<List<Property>> propertiesState;
   final BlocStatus<List<Property>> togglePropertyFavorite;
 
-  // Stats
   final int totalProperties;
   final int completedDeals;
   final int totalViews;

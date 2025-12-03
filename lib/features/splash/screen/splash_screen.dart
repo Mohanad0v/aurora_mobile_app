@@ -31,10 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _navigationService = locator<NavigationService>();
 
-    // Trigger auth check
     widget.authBloc.add(AuthCheckStatus());
 
-    // Wait for animation duration
     Future.delayed(const Duration(milliseconds: 2600), () {
       _animationFinished = true;
       _navigateIfReady();

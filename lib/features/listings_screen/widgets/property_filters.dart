@@ -12,7 +12,6 @@ class PropertyFilters {
   final int? bedrooms;
   final int? bathrooms;
 
-  // Use a Set for more efficient lookups
   final Set<String> amenities;
   final String? availability;
 
@@ -53,8 +52,6 @@ class PropertyFilters {
   }
 }
 
-// 🔹 Normalize Arabic text
-// 🔹 Normalize Arabic text
 String normalizeArabic(String text) {
   return text
       .replaceAll('أ', 'ا')
@@ -66,7 +63,6 @@ String normalizeArabic(String text) {
       .replaceAll('ة', 'ه');
 }
 
-// 🔹 Match search text (Arabic & English) robust
 bool matchesText(String? textEn, String? textAr, String? query) {
   if (query == null || query.trim().isEmpty) return true;
 
@@ -74,13 +70,12 @@ bool matchesText(String? textEn, String? textAr, String? query) {
   final normalizedQ = normalizeArabic(q);
 
   final en = (textEn ?? '').toLowerCase();
-  final ar = normalizeArabic(textAr ?? '').toLowerCase(); // <-- normalize here
+  final ar = normalizeArabic(textAr ?? '').toLowerCase();
 
   return en.contains(q) || ar.contains(normalizedQ);
 }
 
 
-// 🔹 Property type
 bool propertyTypeMatches(Property property, String? filterType) {
   if (filterType == null || filterType.isEmpty || filterType.toLowerCase() == 'all') return true;
   final typeEn = property.propertyType.typeName.en.toLowerCase();
@@ -88,33 +83,28 @@ bool propertyTypeMatches(Property property, String? filterType) {
   return typeEn == filterType.toLowerCase() || typeAr == filterType;
 }
 
-// 🔹 Availability
 bool availabilityMatches(Property property, String? filterAvailability) {
   if (filterAvailability == null || filterAvailability.isEmpty || filterAvailability.toLowerCase() == 'all') return true;
   final normalized = filterAvailability.toLowerCase();
   return property.availability.toLowerCase() == normalized || property.status.toLowerCase() == normalized;
 }
 
-// 🔹 Bedrooms
 bool bedroomsMatch(Property property, int? filterBeds) {
   if (filterBeds == null) return true;
   return filterBeds >= 5 ? property.beds >= 5 : property.beds == filterBeds;
 }
 
-// 🔹 Bathrooms
 bool bathroomsMatch(Property property, int? filterBaths) {
   if (filterBaths == null) return true;
   return filterBaths >= 4 ? property.baths >= 4 : property.baths == filterBaths;
 }
 
-// 🔹 Amenities
 bool amenitiesMatch(Property property, List<String> filterAmenities) {
   if (filterAmenities.isEmpty) return true;
   return filterAmenities.every((filterAmenity) =>
       property.amenities.any((amenity) => amenity.name.en.toLowerCase() == filterAmenity.toLowerCase() || amenity.name.ar == filterAmenity));
 }
 
-// 🔥 Main filter function
 List<Property> filterProperties({
   required List<Property> properties,
   required PropertyFilters filters,

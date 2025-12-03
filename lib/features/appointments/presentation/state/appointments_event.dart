@@ -8,18 +8,18 @@ abstract class AppointmentsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Fetch user appointments
 class FetchUserAppointments extends AppointmentsEvent {
   final String userId;
+
   const FetchUserAppointments({required this.userId});
 
   @override
   List<Object?> get props => [userId];
 }
 
-/// Step navigation & field updates for scheduling
 class SetScheduleStep extends AppointmentsEvent {
   final int step;
+
   const SetScheduleStep(this.step);
 
   @override
@@ -28,6 +28,7 @@ class SetScheduleStep extends AppointmentsEvent {
 
 class UpdateScheduleDate extends AppointmentsEvent {
   final DateTime date;
+
   const UpdateScheduleDate(this.date);
 
   @override
@@ -36,6 +37,7 @@ class UpdateScheduleDate extends AppointmentsEvent {
 
 class UpdateScheduleTime extends AppointmentsEvent {
   final String time;
+
   const UpdateScheduleTime(this.time);
 
   @override
@@ -44,6 +46,7 @@ class UpdateScheduleTime extends AppointmentsEvent {
 
 class UpdateScheduleVisitType extends AppointmentsEvent {
   final String visitType;
+
   const UpdateScheduleVisitType(this.visitType);
 
   @override
@@ -52,6 +55,7 @@ class UpdateScheduleVisitType extends AppointmentsEvent {
 
 class UpdateScheduleVrCity extends AppointmentsEvent {
   final String vrCity;
+
   const UpdateScheduleVrCity(this.vrCity);
 
   @override
@@ -60,20 +64,22 @@ class UpdateScheduleVrCity extends AppointmentsEvent {
 
 class UpdateScheduleNotes extends AppointmentsEvent {
   final String notes;
+
   const UpdateScheduleNotes(this.notes);
 
   @override
   List<Object?> get props => [notes];
 }
 
-/// Submit scheduling
 class SubmitScheduleAppointment extends AppointmentsEvent {
   final ScheduleAppointmentParams params;
+
   const SubmitScheduleAppointment(this.params);
 
   @override
   List<Object?> get props => [params];
 }
+
 class InitializeScheduleAppointment extends AppointmentsEvent {
   final String propertyId;
 

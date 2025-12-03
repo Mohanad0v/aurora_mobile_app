@@ -11,7 +11,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<LoadNewsById>(_onLoadNewsById);
   }
 
-  /// Fetch list of news
   Future<void> _onLoadNews(LoadNews event, Emitter<NewsState> emit) async {
     emit(const NewsLoading());
 
@@ -23,7 +22,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     );
   }
 
-  /// Fetch single news item by ID
   Future<void> _onLoadNewsById(LoadNewsById event, Emitter<NewsState> emit) async {
     emit(const NewsLoading());
 

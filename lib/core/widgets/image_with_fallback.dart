@@ -43,11 +43,10 @@ class ImageWithFallback extends StatelessWidget {
         height: height,
         width: width,
         errorBuilder: (context, error, stackTrace) {
-          // Fallback to a placeholder if image fails to load
           return Container(
             height: height,
             width: width,
-            color: AppColors.gray200, // Light gray background
+            color: AppColors.gray200,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

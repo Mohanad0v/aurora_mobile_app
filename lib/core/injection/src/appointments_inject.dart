@@ -6,7 +6,6 @@ import '../../networking/dio/dio_client.dart';
 import '../injection.dart';
 
 Future<void> appointmentsInject() async {
-  // Data source
   locator.registerLazySingleton<AppointmentsRemoteDataSource>(
     () => AppointmentsRemoteDataSource(
       dioClient: locator<DioClient>(),
@@ -14,7 +13,6 @@ Future<void> appointmentsInject() async {
     ),
   );
 
-  // Repository
   locator.registerLazySingleton<AppointmentRepositoryImpl>(
     () => AppointmentRepositoryImpl(
       remoteDataSource: locator<AppointmentsRemoteDataSource>(),
@@ -22,7 +20,6 @@ Future<void> appointmentsInject() async {
     ),
   );
 
-  // Bloc
   locator.registerFactory<AppointmentsBloc>(
     () => AppointmentsBloc(
       repository: locator<AppointmentRepositoryImpl>(),

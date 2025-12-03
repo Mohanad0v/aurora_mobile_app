@@ -1,10 +1,10 @@
 class ScheduleAppointmentParams {
-  final String propertyId; // 24-char mongo id
-  final String date;       // YYYY-MM-DD
-  final String time;       // HH:mm (24h)
-  final String visitType;  // property | online | office_vr
-  final String? notes;     // optional
-  final String? vrCity;    // required only if office_vr
+  final String propertyId;
+  final String date;
+  final String time;
+  final String visitType;
+  final String? notes;
+  final String? vrCity;
 
   ScheduleAppointmentParams({
     required this.propertyId,

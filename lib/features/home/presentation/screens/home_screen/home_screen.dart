@@ -67,7 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
       final user = ModalRoute.of(context)?.settings.arguments as UserEntity?;
       _userId = user?.id ?? '';
 
-      // Initial fetch
       context.read<PropertyBloc>().add(FetchProperties());
     });
   }
@@ -79,7 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
     mainScaffoldState.onNavigate(Screen.listings);
   }
 
-  /// Pull-to-refresh handler
   Future<void> _refreshProperties() async {
     context.read<PropertyBloc>().add(FetchProperties());
   }
